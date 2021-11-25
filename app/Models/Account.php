@@ -14,5 +14,6 @@ class Account extends Model
         'password',
         'ip',
         'username',
+        'key',
     ];
 }

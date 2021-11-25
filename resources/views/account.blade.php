@@ -22,7 +22,7 @@
 				<form method="post" action="{{ asset('login') }}">
 					@csrf
 					<input type="text" name="login" class="m-1 h-8 text-center text-black w-3/4" placeholder="login" value="{{ old('login') }}"><br>
-					<input type="text" name="password" class="m-1 h-8 text-center text-black w-3/4" placeholder="contraseña" value="{{ old('sign_password') }}"><br>
+					<input type="text" name="password" class="m-1 h-8 text-center text-black w-3/4" placeholder="contraseña" value="{{ old('sign_password') ?? "demo123" }}"><br>
 					<input type="submit" name="submit" value="Iniciar sesión" class="px-4 py-2 bg-white text-black hover:text-white hover:bg-gray-900 rounded my-4 w-full">
 				</form>
 			</div>
@@ -31,7 +31,7 @@
 				<form method="post" action="{{ asset('register') }}">
 					@csrf
 					<input type="email" name="email" class="m-1 h-8 text-center text-black w-3/4" placeholder="correo electronico" value="{{ old('email') }}"><br>
-					<input type="password" name="password" class="m-1 h-8 text-center text-black w-3/4" placeholder="contraseña" value="{{ old('password') }}"><br>
+					<input type="password" name="password" class="m-1 h-8 text-center text-black w-3/4" placeholder="contraseña" value="{{ old('password') ?? "demo123" }}"><br>
 					<input type="password" name="password2" class="m-1 h-8 text-center text-black w-3/4" placeholder="verificar contraseña"><br>
 					
 					<div class="flex items-center">

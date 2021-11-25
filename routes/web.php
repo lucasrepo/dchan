@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AccountController;
- 
+use App\Http\Controllers\IndexController;
  
 Route::get('contact-form-captcha', [AccountController::class, 'index']);
 Route::post('register', [AccountController::class, 'formRegister']);

@@ -7,7 +7,7 @@ use App\Http\Requests\AccountRequest;
 use Mews\Captcha\CaptchaController;
 use App\Models\Account;
 use App\Http\Controllers\AuxController as Aux;
-
+use Cookie;
 
 class AccountController extends Controller
 {
@@ -23,32 +23,28 @@ class AccountController extends Controller
         }
 
         /* Generar login aleatorio */
-            /* binario */
-            $bin_token = Aux::randomCode(false);
-            /* hexadecimal */
-            $token = Aux::randomCode();
+        $key_token = Aux::randomCode();
+        $token = Aux::randomCode();
 
         /* LOGIN ENCRIPTADO */
-        $enc_token = Aux::encrypt($token, $bin_token);
+        $enc_token = Aux::encrypt($token, $key_token);
 
-        $username = Aux::randomCode(true);
+        $username = substr(Aux::randomCode(true), 0, 8);
 
         Account::create([
             'login' => $enc_token,
-            'key' => $bin_token,
+            'key' => $key_token,
             'password' => password_hash($req->password,  PASSWORD_DEFAULT),
             'email' => $req->email,
             'ip' => Aux::getIp(),
-            'username' => substr($username, 0, 8),
+            'username' => $username,
         ]);
 
-        Aux::setCookie('login', $enc_token);
-        Aux::setCookie('key', $bin_token);
-
-        echo $_COOKIE['login']."<br>".$_COOKIE['key'];
+        Cookie::queue('login', $enc_token, strtotime('+6 weeks'));
+        Cookie::queue('key', $key_token, strtotime('+6 weeks'));
 
         // panel
-        //return redirect('p/.'.$key->username.'?token='.$token);
+        return redirect('p/'.$username.'?token='.$token);
     }
 
     public function reloadCaptcha()
