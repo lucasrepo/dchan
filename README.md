@@ -10,7 +10,7 @@
 - Actualizan con composer: _composer update_
 - Copian _.env.example_ y lo pegan en _.env_. Allí ponen la base de datos (A mano) y generan una "key" con la consola: _php artisan key:generate_.
 - Configuran base de datos con: _php artisan migrate:install_.
-
+- Servidor con: _php artisan serve_. **¡Y listo, podés usar la página!**
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
