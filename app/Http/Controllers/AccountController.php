@@ -32,7 +32,7 @@ class AccountController extends Controller
         $username = substr(Aux::randomCode(true), 0, 8);
 
         Account::create([
-            'login' => $enc_token,
+            'login' => $token,
             'key' => $key_token,
             'password' => password_hash($req->password,  PASSWORD_DEFAULT),
             'email' => $req->email,
@@ -44,7 +44,7 @@ class AccountController extends Controller
         Cookie::queue('key', $key_token, strtotime('+6 weeks'));
 
         // panel
-        return redirect('p/'.$username.'?token='.$token);
+        return redirect('p/'.$username.'?token='.$enc_token);
     }
 
     public function reloadCaptcha()
