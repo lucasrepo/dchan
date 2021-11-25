@@ -36,10 +36,11 @@ class AuxController extends Controller
     }
 
     public static function encrypt($data, $key){
+        return openssl_encrypt($data, $this->cipher, $key, OPENSSL_ZERO_PADDING, openssl_random_pseudo_bytes(openssl_cipher_iv_length($this->cipher)));
+    }
 
-        /* ARREGLAR EEH */
-
-        return openssl_encrypt($data, "blowfish", $key,  OPENSSL_ZERO_PADDING, openssl_random_pseudo_bytes(openssl_cipher_iv_length($cipher)));
+    public static function decrypt($ciphertext, $key){
+        return openssl_decrypt($ciphertext, $this->cipher, $key, OPENSSL_ZERO_PADDING, openssl_random_pseudo_bytes(openssl_cipher_iv_length($this->cipher)));
     }
 
     private $cipher = "aes-128-gcm";
