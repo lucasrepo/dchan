@@ -8,8 +8,8 @@
 ## Instalación
 - Clonan el repositorio.
 - Actualizan con composer: _composer update_
-- Copian _.env.example_ y lo pegan en _.env_. Allí ponen la base de datos (A mano) y generan una "key" con la consola: _php artisan key:generate_.
-- Configuran base de datos con: _php artisan migrate:install_.
+- Copian _.env.example_ y lo pegan en _.env_. Allí ponen la base de datos (En el siguiente punto explico) y generan una "private key" con la consola: _php artisan key:generate_.
+- Crean una base de datos con SQLite3 en _/storage/public/app/_ con el siguiente nombre: _database.sqlite_. Con _php artisan migrate:install_ se crean las columnas, terminado.
 - Servidor con: _php artisan serve_. **¡Y listo, podés usar la página!**
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
