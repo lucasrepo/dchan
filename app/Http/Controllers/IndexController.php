@@ -13,21 +13,16 @@ class IndexController extends Controller
         /* dueño */
         if(null !== Cookie::get('login') && null !== Cookie::get('key'))
         {
-            if(Account::where('login', '=', Aux::decrypt(Cookie::get('login'), Cookie::get('key')))->count())
+            if(Account::where('login', '=', Cookie::get('login'))->count())
             {
-                echo "2";
+                $auth = Account::select('key')->where('login', '=', Cookie::get('login'))->limit(1)->get();
 
-                $auth = Account::select('key')->where('login', '=', Aux::decrypt(Cookie::get('login'), Cookie::get('key')))->limit(1)->get();
-
-                dump($auth);
-
-                if(strcmp($auth[0]->key, $key))
+                if(strcmp($auth[0]->key, Cookie::get('key')) == 0)
                 {
-                    echo "log in";
+                    return view('profile/owner');
                 }
             }
         }
-        echo "false";
-        // return vista del perfil
+        return view('profile/user');
     }
 }

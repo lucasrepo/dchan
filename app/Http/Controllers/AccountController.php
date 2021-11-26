@@ -23,12 +23,8 @@ class AccountController extends Controller
         }
 
         /* Generar login aleatorio */
-        $key_token = Aux::randomCode();
         $token = Aux::randomCode();
-
-        /* LOGIN ENCRIPTADO */
-        $enc_token = Aux::encrypt($token, $key_token);
-
+        $key_token = Aux::randomCode();
         $username = substr(Aux::randomCode(true), 0, 8);
 
         Account::create([
@@ -40,11 +36,11 @@ class AccountController extends Controller
             'username' => $username,
         ]);
 
-        Cookie::queue('login', $enc_token, strtotime('+6 weeks'));
+        Cookie::queue('login', $token, strtotime('+6 weeks'));
         Cookie::queue('key', $key_token, strtotime('+6 weeks'));
 
         // panel
-        return redirect('p/'.$username.'?token='.$enc_token);
+        return redirect('p/'.$username.'?token='.$token);
     }
 
     public function reloadCaptcha()

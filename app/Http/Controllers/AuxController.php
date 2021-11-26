@@ -30,16 +30,4 @@ class AuxController extends Controller
         $algo = openssl_random_pseudo_bytes($bytes);
         return ($extended == true) ? bin2hex($algo) : $algo;
     }
-
-    public static function setCookie($key, $value){
-        return setcookie($key, $value, strtotime( '+30 days' ), '/');
-    }
-
-    public static function encrypt($data, $key, $cipher = "aes128"){
-        return openssl_encrypt($data, $cipher, $key, OPENSSL_ZERO_PADDING, openssl_random_pseudo_bytes(openssl_cipher_iv_length($cipher)));
-    }
-
-    public static function decrypt($ciphertext, $key, $cipher = "aes128"){
-        return openssl_decrypt($ciphertext, $cipher, $key, OPENSSL_ZERO_PADDING, openssl_random_pseudo_bytes(openssl_cipher_iv_length($cipher)));
-    }
 }
