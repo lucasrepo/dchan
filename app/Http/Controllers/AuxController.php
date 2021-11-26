@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Account;
+use Cookie;
 
 class AuxController extends Controller
 {
@@ -29,5 +31,31 @@ class AuxController extends Controller
     public static function randomCode($extended = true, $bytes = 16){
         $algo = openssl_random_pseudo_bytes($bytes);
         return ($extended == true) ? bin2hex($algo) : $algo;
+    }
+
+    /**
+     * Comprueba si las cookies existen
+     * @param array elements del array
+     * @param int state permite la cantidad de elementos a "saltar", es decir, si existen dos elementos y el estado esta a uno: solo es necesario que uno exista
+     * @return bool
+     * 
+     *  */
+    public static function hasCookie(?array $elements, int $state= 0){
+        foreach($elements as $elem){
+            if(null !== Cookie::get($elem)){
+                $state++;
+            }
+        }
+        return count($elements) <= $state ? true : false;  
+    }
+    /**
+     * Consulta en la base de datos Account si existe
+     * @param string element a buscar
+     * @param string value para coincidir con la busqueda
+     * @return int cantidad de coincidencias
+     * 
+     * */
+    public static function checkIfExist($element, $value){
+        return Account::where($element, '=', $value)->count();
     }
 }

@@ -7,13 +7,18 @@ use App\Http\Requests\AccountRequest;
 use Mews\Captcha\CaptchaController;
 use App\Models\Account;
 use App\Http\Controllers\AuxController as Aux;
+use App\Http\Controllers\IndexController;
 use Cookie;
 
 class AccountController extends Controller
 {
     public function index()
     {
-        return view('account');
+        if(Aux::hasCookie(['login', 'key'])){
+            return redirect()->action([IndexController::class, 'profile'], ['username' => "juancito"]);
+        }else{
+            return view('account');    
+        }
     }
 
     public function formRegister(AccountRequest $req)
@@ -25,7 +30,13 @@ class AccountController extends Controller
         /* Generar login aleatorio */
         $token = Aux::randomCode();
         $key_token = Aux::randomCode();
+
         $username = substr(Aux::randomCode(true), 0, 8);
+        /* Por las dudas, jeje */
+        while(0 != Account::where('username', '=', $username)->count())
+        {
+            $username = substr(Aux::randomCode(true), 0, 8);
+        }
 
         Account::create([
             'login' => $token,
@@ -55,27 +66,19 @@ class AccountController extends Controller
             'password' => 'required|max:30',
         ]);
 
-        if(null === ($auth =  Account::where('ip', '=', Aux::getIp())->select('login', 'id', 'password', 'username')->get()))
+        if(!Aux::checkIfExist('login', $req->login))
         {
             return back()->with('error', 'La información ingresada no es valida');
         }
-        else
-        {
-            foreach ($auth as $key)
-            {
-                if(password_verify($req->login, $key->login))
-                {
-                    if(password_verify($req->password, $key->password))
-                    {
-                        setcookie('login', $req->login, strtotime( '+30 days' ), '/');
 
-                        // panel
-                        return redirect('p/'.$key->username);
-                    }
-                    break;
-                }
-            }
-            return back()->with('error', 'La información ingresada no es valida');
+        $auth =  Account::where('login', '=', $req->login)->select('key', 'password', 'username')->limit(1)->get();
+
+        if(password_verify($req->password, $auth[0]->password))
+        {
+            Cookie::queue('login', $req->login, strtotime('+6 weeks'));
+            Cookie::queue('key', $auth[0]->key, strtotime('+6 weeks'));
+            return redirect('p/'.$auth[0]->username);
         }
+        return back()->with('error', 'La información ingresada no es valida');
     }
 }

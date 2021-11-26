@@ -9,20 +9,26 @@ use Cookie;
 
 class IndexController extends Controller
 {
-    public function profile(Request $req){
-        /* dueño */
-        if(null !== Cookie::get('login') && null !== Cookie::get('key'))
+    public function profile(Request $req)
+    {
+        if(Aux::checkIfExist('username', $req->username))
         {
-            if(Account::where('login', '=', Cookie::get('login'))->count())
+            if(Aux::hasCookie(['login', 'key']))
             {
-                $auth = Account::select('key')->where('login', '=', Cookie::get('login'))->limit(1)->get();
-
-                if(strcmp($auth[0]->key, Cookie::get('key')) == 0)
+                if(Aux::checkIfExist('login', Cookie::get('login')))
                 {
-                    return view('profile/owner');
-                }
+                    $auth = Account::select('key', 'login')->where('username', '=', $req->username)->limit(1)->get();
+
+                    if((strcmp($auth[0]->key, Cookie::get('key')) == 0) && (strcmp($auth[0]->login, Cookie::get('login')) == 0))
+                    {
+                        return view('profile/owner');
+                    }
+                }             
             }
+        }else{
+            return view('profile/user')->with('error', 'El USUARIO NO EXISTE');    
         }
         return view('profile/user');
+        
     }
 }
