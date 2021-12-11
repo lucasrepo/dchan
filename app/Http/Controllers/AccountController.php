@@ -15,9 +15,12 @@ class AccountController extends Controller
     public function index()
     {
         if(Aux::hasCookie(['login', 'key'])){
-            return redirect()->action([IndexController::class, 'profile'], ['username' => "juancito"]);
+
+            $acc = Account::select('username')->where('login', '=', Cookie::get('login'))->limit(1)->get();
+
+            return $acc[0]->username !== null ? redirect()->action([IndexController::class, 'profile'], ['username' => $acc[0]->username]) : view('login');
         }else{
-            return view('account');    
+            return view('login');    
         }
     }
 

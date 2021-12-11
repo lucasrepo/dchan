@@ -17,11 +17,11 @@ class IndexController extends Controller
             {
                 if(Aux::checkIfExist('login', Cookie::get('login')))
                 {
-                    $auth = Account::select('key', 'login')->where('username', '=', $req->username)->limit(1)->get();
+                    $auth = Account::select('key', 'login', 'username')->where('username', '=', $req->username)->limit(1)->get();
 
                     if((strcmp($auth[0]->key, Cookie::get('key')) == 0) && (strcmp($auth[0]->login, Cookie::get('login')) == 0))
                     {
-                        return view('profile/owner');
+                        return view('profile/owner')->with('username', $auth[0]->username)->with('boards', ['board', 'bparddd']);
                     }
                 }             
             }

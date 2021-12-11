@@ -1,8 +1,7 @@
 @extends('layouts.app')
 
 @section('main')
-<div>hola</div>
 @isset($error)
-El usuario no existe
+	<div class="text-white text-center p-7">El usuario no existe</div>
 @endisset
 @endsection

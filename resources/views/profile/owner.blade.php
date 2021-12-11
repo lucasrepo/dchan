@@ -16,4 +16,19 @@
   </div>
 </div>
 @endisset
+
+<div class="text-white text-center p-6">{{$username}}</div>
+
+@if(count($boards) <= 1 && $boards !== null)
+<div>Board: {{ $boards[0] }}</div>
+@elseif(count($boards) > 1)
+<div>Boards:
+@foreach($boards as $board)
+<span class="text-green-600">{{ $board }}</span>
+@endforeach
+</div>
+@endif
+
+<button class="button">Crear board</button>
+
 @endsection

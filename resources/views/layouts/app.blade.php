@@ -5,7 +5,7 @@
    <meta charset="UTF-8" />
    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-   <title>archan</title>
+   <title>Dchan @yield('title') </title>
    <style type="text/css">
       @font-face {
          font-family: "PlayfairDisplay";
@@ -19,11 +19,15 @@
       a {
          cursor: url('{{ asset('cursor/cursor.cur') }}'), auto;
       }
+
+      @yield('style')
+
    </style>
+
+   @yield('head')
+   
 </head>
-<body class="bg-gray-900">
-   <main>
-      @yield('main')
-   </main>
-</body>
+
+@yield('body')
+
 </html>
