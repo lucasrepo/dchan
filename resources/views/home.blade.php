@@ -53,12 +53,4 @@
 
     <div class="text-center text-gray-200 p-1">admin@archan.org</div>
   </main>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script type="text/javascript" src="vanilla-tilt.js"></script>
-<script type="text/javascript">
-      VanillaTilt.init(document.querySelector(".card"), {
-      max: 5,
-      speed: 100
-       });
-</script>
 @endsection

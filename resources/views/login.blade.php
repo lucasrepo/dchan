@@ -6,11 +6,6 @@
 @section('action', asset('login'))
 
 @section('form')
-@isset($error)
-   @component('components.alert')
-   @slot('alert', $error)
-   @endcomponent
-@endisset
 
 @component('components.forms.input')
     @slot('label', 'Código de acceso')

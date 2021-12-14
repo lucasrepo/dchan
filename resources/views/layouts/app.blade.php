@@ -11,13 +11,8 @@
          font-family: "PlayfairDisplay";
          src: "{{ asset('font/PlayfairDisplay-Regular.ttf') }}";
       }
-      
       * {
          font-family: "PlayfairDisplay";
-         cursor: url('{{ asset('cursor/cursor.cur') }}'), auto;
-      }
-      a {
-         cursor: url('{{ asset('cursor/cursor.cur') }}'), auto;
       }
       .body-bg{
           background-color:#323b49;

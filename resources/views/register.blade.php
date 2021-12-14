@@ -10,15 +10,6 @@
 
 @section('form')
 
-@if($errors->any())
-   @foreach ($errors->all() as $error)
-        @component('components.alert')
-            @slot('color', 'red') 
-            @slot('content', $error)
-        @endcomponent
-  @endforeach
-@endif
-
 @component('components.forms.input')
     @slot('label', 'Correo electronico')
     @slot('type', 'email')
@@ -40,9 +31,8 @@
     @slot('id', 'password2')
 @endcomponent
 
-<div class="place-self-center p-2 captcha">
-    <span>{!! captcha_img() !!}</span>
-    <button type="button" class="btn btn-danger" class="reload" id="reload">Nuevo captcha</button>
+<div class="place-self-center p-2 captcha border-double border-4 border-green-600 mb-3">
+    <span id="reload" class="reload" alt="nuevo captcha">{!! captcha_img() !!}</span>
 </div>
 
 <script type="text/javascript">

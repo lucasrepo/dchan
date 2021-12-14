@@ -20,7 +20,9 @@
     animation-fill-mode: both;
 }
 @endsection
-
+@section('head')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+@endsection
 @section('body')
 
     <main class="animated fadeIn">
@@ -38,6 +40,16 @@
         </section>
         <section class="mt-10">   
             <form class="flex flex-col" method="post" action="@yield('action')">
+                
+                @if($errors->any())
+                   @foreach ($errors->all() as $error)
+                        @component('components.alert')
+                            @slot('color', 'red') 
+                            @slot('content', $error)
+                        @endcomponent
+                  @endforeach
+                @endif
+
                 @csrf
                 @yield('form')
                 <div>   
@@ -61,7 +73,6 @@
          </div>
      </footer>
     
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript" src="vanilla-tilt.js"></script>
 <script type="text/javascript">
     VanillaTilt.init(document.querySelector(".card"), {

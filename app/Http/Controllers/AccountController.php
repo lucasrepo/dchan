@@ -27,7 +27,9 @@ class AccountController extends Controller
     public function formRegister(AccountRequest $req)
     {
         if(!filter_var($req->email, FILTER_VALIDATE_EMAIL)){
-            return back()->with('error', 'El email no es valido.');
+            return back()->withErrors([
+                'email' => 'La información ingresada no es valida'
+            ]);
         }
 
         /* Generar login aleatorio */
@@ -71,7 +73,9 @@ class AccountController extends Controller
 
         if(!Aux::checkIfExist('login', $req->login))
         {
-            return back()->with('error', 'La información ingresada no es valida');
+            return back()->withErrors([
+            'email' => 'La información ingresada no es valida',
+            ]);
         }
 
         $auth =  Account::where('login', '=', $req->login)->select('key', 'password', 'username')->limit(1)->get();
@@ -82,7 +86,9 @@ class AccountController extends Controller
             Cookie::queue('key', $auth[0]->key, strtotime('+6 weeks'));
             return redirect('p/'.$auth[0]->username);
         }
-        return back()->with('error', 'La información ingresada no es valida');
+        return back()->withErrors([
+            'email' => 'La información ingresada no es valida',
+        ]);
     }
 
     public function signOut(Request $req)
