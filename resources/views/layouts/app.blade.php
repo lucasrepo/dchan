@@ -19,6 +19,10 @@
       a {
          cursor: url('{{ asset('cursor/cursor.cur') }}'), auto;
       }
+      .body-bg{
+          background-color:#323b49;
+          background-image: linear-gradient(180deg, #202225 0%,#36393f 50%, #4f545c 100%);
+      }
 
       @yield('style')
 

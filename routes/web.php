@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\IndexController;
- 
+
 Route::get('contact-form-captcha', [AccountController::class, 'index']);
 
 /* Inicio de sesion y registro */
@@ -15,6 +15,8 @@ Route::view('register', 'register');
 
 Route::view('reset-password', 'reset-password');
 Route::post('reset-password', [AccountController::class, 'resetPassword']);
+
+Route::get('sign-out', [AccountController::class, 'signOut']);
 
 Route::get('/', function () {
     return view('home');

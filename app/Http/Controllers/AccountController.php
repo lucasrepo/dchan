@@ -35,7 +35,7 @@ class AccountController extends Controller
         $key_token = Aux::randomCode();
 
         $username = substr(Aux::randomCode(true), 0, 8);
-        /* Por las dudas, jeje */
+        /* Por las dudas */
         while(0 != Account::where('username', '=', $username)->count())
         {
             $username = substr(Aux::randomCode(true), 0, 8);
@@ -83,5 +83,15 @@ class AccountController extends Controller
             return redirect('p/'.$auth[0]->username);
         }
         return back()->with('error', 'La información ingresada no es valida');
+    }
+
+    public function signOut(Request $req)
+    {
+        if($req->hasCookie('login') && $req->hasCookie('key'))
+        {
+            Cookie::queue(Cookie::forget('login'));
+            Cookie::queue(Cookie::forget('key'));
+        }
+        return redirect('/');
     }
 }

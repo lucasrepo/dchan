@@ -13,22 +13,33 @@ class IndexController extends Controller
     {
         if(Aux::checkIfExist('username', $req->username))
         {
+
+            $auth = Account::select('key', 'login', 'username', 'created_at')->where('username', '=', $req->username)->limit(1)->get();
+
+            if($auth[0]->username === null)
+            {
+                echo "false";
+            }
+
             if(Aux::hasCookie(['login', 'key']))
             {
                 if(Aux::checkIfExist('login', Cookie::get('login')))
                 {
-                    $auth = Account::select('key', 'login', 'username')->where('username', '=', $req->username)->limit(1)->get();
-
                     if((strcmp($auth[0]->key, Cookie::get('key')) == 0) && (strcmp($auth[0]->login, Cookie::get('login')) == 0))
                     {
-                        return view('profile/owner')->with('username', $auth[0]->username)->with('boards', ['board', 'bparddd']);
+                        return view('profile')
+                        ->with('user', $auth[0])
+                        ->with('boards', ['board', 'bparddd'])
+                        ->with('owner', $auth[0]->key);
                     }
                 }             
             }
         }else{
-            return view('profile/user')->with('error', 'El USUARIO NO EXISTE');    
+            /* Si existe un error solo imprime el error y una pagina en blanco con un boton que devuelve al index */
+            return view('profile')->with('error', 'El USUARIO NO EXISTE');    
         }
-        return view('profile/user');
-        
+        return view('profile')
+        ->with('user', $auth[0])
+        ->with('boards', ['board', 'bparddd']);      
     }
 }

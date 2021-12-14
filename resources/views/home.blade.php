@@ -1,14 +1,12 @@
 @extends('layouts.app')
 
 @section('body')
-<body class="bg-gray-900">
-  <head>
-    <div class="p-2">
-       <div class="p-2 text-center text-4xl text-white">
-          <span class="text-blue-400">A</span><span class="text-yellow-400">R</span>CHAN<br><span style="font-size: 23px;" class="my-0">Un chan con buena gente</span>
-       </div>
-    </div>
-  </head>
+<body class="body-bg min-h-screen pt-12 md:pt-20 pb-6 px-2 md:px-0">
+  <header class="max-w-lg mx-auto">
+        <a href="#" class="text-4xl font-bold text-gray-100 flex flex-row justify-center items-center hover:animate-ping">
+            <span class="text-green-500">D</span>chan
+        </a>
+    </header>
 
 {{-- CAJAS --}}
 {{-- recordar poner substr a los post y boards --}}
@@ -63,5 +61,13 @@
 
     <div class="text-center text-gray-200 p-1">admin@archan.org</div>
   </main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript" src="vanilla-tilt.js"></script>
+<script type="text/javascript">
+      VanillaTilt.init(document.querySelector(".card"), {
+      max: 5,
+      speed: 100
+       });
+</script>
 </body>
 @endsection

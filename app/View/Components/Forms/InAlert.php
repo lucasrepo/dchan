@@ -1,10 +1,10 @@
 <?php
-
+/* mejorar esto a futuro */
 namespace App\View\Components\Forms;
 
 use Illuminate\View\Component;
 
-class Input extends Component
+class InAlert extends Component
 {
     public function __construct()
     {
@@ -12,6 +12,6 @@ class Input extends Component
     }
     public function render()
     {
-        return view('components.forms.input');
+        return view('components.forms.in-alert');
     }
 }

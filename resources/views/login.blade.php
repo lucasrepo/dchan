@@ -3,18 +3,14 @@
 @section('title', 'login')
 @section('subtitle', 'Ingresá a tu cuenta')
 
-@section('action', 'login')
+@section('action', asset('login'))
 
 @section('form')
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li class="text-center text-red-500 text-1xl">{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+@isset($error)
+   @component('components.forms.alert')
+   @slot('alert', $error)
+   @endcomponent
+@endisset
 
 @component('components.forms.input')
     @slot('label', 'Código de acceso')
