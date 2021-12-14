@@ -1,14 +1,6 @@
 @extends('layouts.app')
 
 @section('body')
-<body class="body-bg min-h-screen pt-12 md:pt-20 pb-6 px-2 md:px-0">
-  <header class="max-w-lg mx-auto">
-        <a href="#" class="text-4xl font-bold text-gray-100 flex flex-row justify-center items-center hover:animate-ping">
-            <span class="text-green-500">D</span>chan
-        </a>
-    </header>
-
-{{-- CAJAS --}}
 {{-- recordar poner substr a los post y boards --}}
   <main>
     <div class="p-2 grid grid-rows-3 grid-flow-col gap-4">
@@ -69,5 +61,4 @@
       speed: 100
        });
 </script>
-</body>
 @endsection

@@ -7,7 +7,7 @@
 
 @section('form')
 @isset($error)
-   @component('components.forms.alert')
+   @component('components.alert')
    @slot('alert', $error)
    @endcomponent
 @endisset
