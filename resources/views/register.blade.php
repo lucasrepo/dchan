@@ -1,16 +1,23 @@
 @extends('layouts.account')
 
+@section('head')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+@endsection
+
 @section('title', 'registro')
 @section('subtitle', 'Crea tu cuenta')
 @section('action', asset('register'))
 
 @section('form')
 
-@isset($error)
-   @component('components.alert')
-   @slot('alert', $error)
-   @endcomponent
-@endisset
+@if($errors->any())
+   @foreach ($errors->all() as $error)
+        @component('components.alert')
+            @slot('color', 'red') 
+            @slot('content', $error)
+        @endcomponent
+  @endforeach
+@endif
 
 @component('components.forms.input')
     @slot('label', 'Correo electronico')
@@ -33,9 +40,23 @@
     @slot('id', 'password2')
 @endcomponent
 
-<div class="place-self-center p-2">
-    {!! captcha_img() !!}
+<div class="place-self-center p-2 captcha">
+    <span>{!! captcha_img() !!}</span>
+    <button type="button" class="btn btn-danger" class="reload" id="reload">Nuevo captcha</button>
 </div>
+
+<script type="text/javascript">
+    $('#reload').click(function () {
+        $.ajax({
+            type: 'GET',
+            url: 'reload-captcha',
+            success: function (data) {
+                $(".captcha span").html(data.captcha);
+            }
+        });
+    });
+
+</script>
 
 @component('components.forms.input')
     @slot('label', 'Verificar captcha')

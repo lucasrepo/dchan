@@ -4,8 +4,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\IndexController;
 
-Route::get('contact-form-captcha', [AccountController::class, 'index']);
-
 /* Inicio de sesion y registro */
 Route::post('register', [AccountController::class, 'formRegister']);
 Route::post('login', [AccountController::class, 'formLogin']);
@@ -25,3 +23,5 @@ Route::get('/', function () {
 Route::get('account', [AccountController::class, 'index']);
 
 Route::get('p/{username}', [IndexController::class, 'profile']);
+
+Route::get('reload-captcha', [AccountController::class, 'reloadCaptcha']);

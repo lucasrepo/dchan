@@ -36,7 +36,7 @@ class IndexController extends Controller
             }
         }else{
             /* Si existe un error solo imprime el error y una pagina en blanco con un boton que devuelve al index */
-            return view('profile')->with('error', 'El USUARIO NO EXISTE');    
+            return view('profile')->with('errors', 'El USUARIO NO EXISTE');    
         }
         return view('profile')
         ->with('user', $auth[0])
