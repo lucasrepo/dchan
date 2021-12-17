@@ -30,6 +30,11 @@ class AccountController extends Controller
             return back()->withErrors([
                 'email' => 'La información ingresada no es valida'
             ]);
+        }else if(strcmp($req->password, $req->password2) != 0)
+        {
+            return back()->withErrors([
+                'password' => 'La contraseña no coincide'
+            ]);
         }
 
         /* Generar login aleatorio */
@@ -56,7 +61,7 @@ class AccountController extends Controller
         Cookie::queue('key', $key_token, strtotime('+6 weeks'));
 
         // panel
-        return redirect('p/'.$username.'?token='.$token);
+        return redirect('p/'.$username)->with('alert', "Guarda este código de acceso: ".$token.". ¡No lo pierdas!");
     }
 
     public function reloadCaptcha()
@@ -67,8 +72,8 @@ class AccountController extends Controller
     public function formLogin(Request $req){
 
         $req->validate([
-            'login' => 'required|max:40',
-            'password' => 'required|max:30',
+            'login' => 'string|required|max:40',
+            'password' => 'string|required|max:30',
         ]);
 
         if(!Aux::checkIfExist('login', $req->login))

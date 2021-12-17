@@ -1,5 +1,5 @@
 @extends('layouts.account')
-@section('title', 'recuperar contraseña')
+@section('title', 'Recuperar contraseña')
 @section('subtitle', 'Recupera tu cuenta')
 
 @section('action', 'reset-password')

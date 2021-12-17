@@ -3,9 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Http\Controllers\AuxController;
 
-class AccountRequest extends FormRequest
+class NewBoardRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,9 +13,7 @@ class AccountRequest extends FormRequest
      */
     public function authorize()
     {
-        /* Validar IpClient */
-        /*return null !== AuxController::getIp() ? true : false;*/
-
+        /* if(!Aux::checkUser()) */
         return true;
     }
 
@@ -27,20 +24,19 @@ class AccountRequest extends FormRequest
      */
     public function rules()
     {
-
         return [
+            'name' => 'required|max:30|unique:boards',
             'captcha' => 'required|min:4|max:8|captcha',
-            'email' => 'required|min:5|max:30|unique:accounts|email',
-            'password' => 'required|max:30|min:6',
-            'password2' => 'required|max:30|min:6'
+            'description' => 'min:10',
+            'tags' => 'required|string',
         ];
     }
 
     public function attributes()
     {
         return [
-            'password' => 'contraseña',
-            'password2' => 'contraseña',
+            'description' => 'descripción',
+            'name' => 'nombre',
         ];
     }
 

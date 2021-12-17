@@ -4,7 +4,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 @endsection
 
-@section('title', 'registro')
+@section('title', 'Registro')
 @section('subtitle', 'Crea tu cuenta')
 @section('action', asset('register'))
 
@@ -17,6 +17,7 @@
     @slot('id', 'email')
 @endcomponent
 
+<span id="password-verify" class="text-red-500"></span>
 @component('components.forms.input')
     @slot('label', 'Contraseña')
     @slot('type', 'password')
@@ -30,6 +31,12 @@
     @slot('name', 'password2')
     @slot('id', 'password2')
 @endcomponent
+
+<script type="text/javascript">
+    $('#password2').on('input', function () {
+        $('#password-verify').text($('#password').val() !== $('#password2').val() ? "La contraseña no coincide" : "");
+    });
+</script>
 
 <div class="place-self-center p-2 captcha border-double border-4 border-green-600 mb-3">
     <span id="reload" class="reload" alt="nuevo captcha">{!! captcha_img() !!}</span>

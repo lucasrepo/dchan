@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('title', 'Home')
 @section('body')
 {{-- recordar poner substr a los post y boards --}}
   <main>
@@ -22,9 +22,11 @@
       <div class="p-2 rounded-md border-double border-2 border-gray-700 row-span-2 col-span-2 bg-black text-white text-center truncate">
       	<h1 class="text-lg">Boards recientes</h1>
         <ul>
-          @for($i=0;$i<=6; $i++)
-          <li><a href="{{ asset($i) }}" class="hover:underline hover:text-green-400">{{ $i }}</a></li>
-          @endfor
+          @foreach($boards as $board)
+            @foreach($board as $link => $name)
+              <li><a href="{{ asset($link) }}" class="hover:underline hover:text-green-400">{{ $name }}</a></li>
+            @endforeach
+          @endforeach
         </ul>
       </div>
     </div>

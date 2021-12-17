@@ -1,34 +1,29 @@
 @extends('layouts.app')
-
+@section('title', 'Perfil')
 @section('body')
-@isset($_GET["token"])
-	@isset($owner)
-	@component('components.alert')
-	@slot('color', 'green')
-	@slot('content')
-		<p class="font-bold">Su cuenta se creó con éxito</p>
-	    <p class="text-sm">Guarda este código de acceso: @php echo htmlspecialchars($_GET['token']); @endphp. ¡No lo pierdas!</p>
-	@endslot
-	@endcomponent
-	@endisset
-@endisset
 
+@isset($alert)
+	@component('components.alert')
+	    @slot('color', 'green') 
+	    @slot('content', $alert)
+	@endcomponent
+@endif
 	<div class="text-white text-center p-6">{{ $user->username }}</div>
 
-@if(count($boards) <= 1 && $boards !== null)
-	<div>Board: {{ $boards[0] }}</div>
-@elseif(count($boards) > 1)
+@isset($boards)
 	<div>Boards:
-@foreach($boards as $board)
-	<span class="text-green-600">{{ $board }}</span>
-@endforeach
+	@foreach($boards as $board)
+		@foreach($board as $link => $name)
+			<a class="text-green-600" href="{{ asset($link) }}">{{ $name }}</a>
+		@endforeach
+	@endforeach
 	</div>
-@endif
+@endisset
 
 @isset($owner)
 	@component('components.button')
 		@slot('color', 'blue')
-		@slot('link', '#')
+		@slot('link', asset('crear-board'))
 		@slot('content', 'Crear board')
 	@endcomponent
 

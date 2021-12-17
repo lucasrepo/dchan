@@ -73,7 +73,7 @@
          </div>
      </footer>
     
-<script type="text/javascript" src="vanilla-tilt.js"></script>
+<script type="text/javascript" src="{{ asset('js/vanilla-tilt.js') }}"></script>
 <script type="text/javascript">
     VanillaTilt.init(document.querySelector(".card"), {
     max: 5,

@@ -55,7 +55,18 @@ class AuxController extends Controller
      * @return int cantidad de coincidencias
      * 
      * */
-    public static function checkIfExist($element, $value){
+    public static function checkIfExist(string $element, $value){
         return Account::where($element, '=', $value)->count();
+    }
+
+    public static function checkUser()
+    {
+        if(self::hasCookie(['login', 'key'])){
+            $auth = Account::select('key')->where('login', '=', Cookie::get('login'))->limit(1)->get();    
+        }else{
+            return false;
+        }
+
+        return strcmp($auth[0]->key, Cookie::get('key') == 0) ? true : false;
     }
 }

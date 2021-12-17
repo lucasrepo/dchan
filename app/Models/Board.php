@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Board extends Model
 {
     use HasFactory;
+
+    protected $fillable = ["name", "description", "tags", "mods", "owner", "confirmed"];
+
+    public $timestamps = false;
 }

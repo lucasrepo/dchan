@@ -1,6 +1,6 @@
 @extends('layouts.account')
 
-@section('title', 'login')
+@section('title', 'Inicio de sesión')
 @section('subtitle', 'Ingresá a tu cuenta')
 
 @section('action', asset('login'))
